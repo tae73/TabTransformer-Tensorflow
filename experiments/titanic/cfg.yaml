@@ -1,0 +1,35 @@
+data:
+  input_column_classes: '[2, 3, 4, 4, 2, 2, 5]'
+  input_num_size: 12
+  num_outputs: 1
+
+model:
+  name: 'Tabtransformer'
+  embed_size: 32
+  identifier_ratio: 8
+  aggregate_method: 'concat'
+  depth: 6
+  num_heads: 8
+  dropout_rate: 0.1
+  mlp_unit_ratios: '[2, 0.5]'
+  inference_activation: 'sigmoid'
+
+train:
+  epochs: 100
+  batch_size: 32
+  buffer_size: 100
+  learning_rate: 0.0005
+  weight_decay: 0.0004
+  early_stopping: True
+  stop_patience: 10
+#  loss_fn: tfa.losses.SigmoidFocalCrossEntropy
+  loss_fn: losses.BinaryCrossentropy
+  optimize_fn: tfa.optimizers.AdamW
+  loss_metric: metrics.BinaryCrossentropy
+  evaluate_metric: metrics.BinaryAccuracy
+
+random:
+  random_seed: '42'
+
+mlflow:
+  experiment_name: 'TabTransformer-Titanic'
